@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37CF25E824676B64006C623C /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CF25E724676B64006C623C /* Field.swift */; };
+		37E3366A2469DBEC0096520D /* ServerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E336692469DBEC0096520D /* ServerList.swift */; };
 		37E89B2224674A3300132AF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E89B2124674A3300132AF8 /* AppDelegate.swift */; };
 		37E89B2424674A3300132AF8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E89B2324674A3300132AF8 /* ContentView.swift */; };
 		37E89B2624674A3300132AF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E89B2524674A3300132AF8 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		37CF25E724676B64006C623C /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		37E336692469DBEC0096520D /* ServerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerList.swift; sourceTree = "<group>"; };
 		37E89B1E24674A3300132AF8 /* SweetIRC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetIRC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E89B2124674A3300132AF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37E89B2324674A3300132AF8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		37CF25E524676B3E006C623C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				37E336682469DB9F0096520D /* ServerList */,
 				37CF25E624676B50006C623C /* Field */,
 			);
 			path = Components;
@@ -91,6 +94,14 @@
 				37CF25E724676B64006C623C /* Field.swift */,
 			);
 			path = Field;
+			sourceTree = "<group>";
+		};
+		37E336682469DB9F0096520D /* ServerList */ = {
+			isa = PBXGroup;
+			children = (
+				37E336692469DBEC0096520D /* ServerList.swift */,
+			);
+			path = ServerList;
 			sourceTree = "<group>";
 		};
 		37E89B1524674A3300132AF8 = {
@@ -287,6 +298,7 @@
 			files = (
 				37E89B2424674A3300132AF8 /* ContentView.swift in Sources */,
 				37E89B2224674A3300132AF8 /* AppDelegate.swift in Sources */,
+				37E3366A2469DBEC0096520D /* ServerList.swift in Sources */,
 				37CF25E824676B64006C623C /* Field.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
