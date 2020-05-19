@@ -16,6 +16,7 @@
 		37E89B2C24674A3300132AF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E89B2A24674A3300132AF8 /* Main.storyboard */; };
 		37E89B3824674A3300132AF8 /* SweetIRCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E89B3724674A3300132AF8 /* SweetIRCTests.swift */; };
 		37E89B4324674A3300132AF8 /* SweetIRCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E89B4224674A3300132AF8 /* SweetIRCUITests.swift */; };
+		DAF0FFB9247267E40078AE0D /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0FFB8247267E40078AE0D /* UserInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		37E89B3E24674A3300132AF8 /* SweetIRCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SweetIRCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E89B4224674A3300132AF8 /* SweetIRCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITests.swift; sourceTree = "<group>"; };
 		37E89B4424674A3300132AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF0FFB8247267E40078AE0D /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				37CF25E524676B3E006C623C /* Components */,
 				37E89B2124674A3300132AF8 /* AppDelegate.swift */,
 				37E89B2324674A3300132AF8 /* ContentView.swift */,
+				DAF0FFB8247267E40078AE0D /* UserInformation.swift */,
 				37E89B2524674A3300132AF8 /* Assets.xcassets */,
 				37E89B2A24674A3300132AF8 /* Main.storyboard */,
 				37E89B2D24674A3300132AF8 /* Info.plist */,
@@ -296,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF0FFB9247267E40078AE0D /* UserInformation.swift in Sources */,
 				37E89B2424674A3300132AF8 /* ContentView.swift in Sources */,
 				37E89B2224674A3300132AF8 /* AppDelegate.swift in Sources */,
 				37E3366A2469DBEC0096520D /* ServerList.swift in Sources */,

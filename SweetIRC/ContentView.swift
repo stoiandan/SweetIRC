@@ -9,25 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State var nickInfo :  String = ""
-    @State var nameInfo : String = ""
-    @State var userInfo : String = ""
     @State var selectedServer : String = "FreeNode"
     
+    @ObservedObject var userInformation: UserInformation = UserInformation()
     
     var body: some View {
-        VStack {
-            Field(fieldName: "Nick", value: $nickInfo)
-            Field(fieldName: "Username", value: $nameInfo)
-            Field(fieldName: "Real name", value:  $userInfo)
-            ServerList(selectedServer: $selectedServer).frame(maxWidth: .infinity, alignment: .leading)
-            Button(action: {
+        NavigationView {
+            VStack {
+                Field(fieldName: "Nick", value: $userInformation.nickName)
+                Field(fieldName: "Username", value: $userInformation.name)
+                Field(fieldName: "Real name", value:  $userInformation.realName)
+                ServerList(selectedServer: $selectedServer)
                 
-            }){
-                Text("Connect")
-            }.padding(.bottom)
-        }.frame(maxWidth: .infinity, alignment: .topLeading)
+                NavigationLink(destination: UserView(userInfo: self.userInformation)) {
+                    Text("Connect")
+                }
+            }
+        }
     }
 }
 
@@ -35,5 +33,17 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct UserView: View {
+    @State var userInfo: UserInformation
+    var body: some View {
+        VStack {
+            Text("\(userInfo.name)")
+            Text("\(userInfo.nickName)")
+            Text("\(userInfo.realName)")
+        }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
