@@ -9,7 +9,12 @@
 import Foundation
 
 class UserInformation: ObservableObject {
-    @Published var name: String = ""
+    @Published var userName: String = ""
     @Published var nickName: String = ""
     @Published var realName: String = ""
+    
+    
+    var isCompleted : Bool {
+        return userName != "" && realName != "" && nickName != ""
+    }
 }
