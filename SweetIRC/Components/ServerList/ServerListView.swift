@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ServerList: View {
     
-    let servers = ["FreeNode", "GimpNet","Iada","Iata"]
+    let servers : [ServerListEntry] = [ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net"), ServerListEntry(firendlyName: "GimpNet", serverAddress: "irc.gimp.org")]
     
     @Binding var selectedServer : String
     
@@ -20,7 +20,7 @@ struct ServerList: View {
             Text("Servers: ").font(.headline)
             Picker(selection: $selectedServer, label: EmptyView()){
                 ForEach(servers, id: \.self){
-                    Text("\($0)")
+                    Text("\($0.firendlyName)")
                 }
             }.pickerStyle(RadioGroupPickerStyle())
         }.frame(maxWidth: .infinity, alignment: .leading).padding()

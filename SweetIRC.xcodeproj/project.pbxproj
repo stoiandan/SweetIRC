@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3787AC3D247A7B2800AD2F45 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787AC3C247A7B2800AD2F45 /* Connection.swift */; };
+		3787AC3F247A7BC900AD2F45 /* ServerListEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787AC3E247A7BC900AD2F45 /* ServerListEntry.swift */; };
 		37CF25E824676B64006C623C /* FieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CF25E724676B64006C623C /* FieldView.swift */; };
 		37E3366A2469DBEC0096520D /* ServerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E336692469DBEC0096520D /* ServerListView.swift */; };
 		37E89B2224674A3300132AF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E89B2124674A3300132AF8 /* AppDelegate.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3787AC3C247A7B2800AD2F45 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		3787AC3E247A7BC900AD2F45 /* ServerListEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListEntry.swift; sourceTree = "<group>"; };
 		37CF25E724676B64006C623C /* FieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldView.swift; sourceTree = "<group>"; };
 		37E336692469DBEC0096520D /* ServerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListView.swift; sourceTree = "<group>"; };
 		37E89B1E24674A3300132AF8 /* SweetIRC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SweetIRC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +85,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3787AC39247A7AA700AD2F45 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3787AC3A247A7AE600AD2F45 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAF0FFB8247267E40078AE0D /* UserInformation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3787AC3B247A7AFF00AD2F45 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3787AC3C247A7B2800AD2F45 /* Connection.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		37CF25E524676B3E006C623C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				37E336692469DBEC0096520D /* ServerListView.swift */,
+				3787AC3E247A7BC900AD2F45 /* ServerListEntry.swift */,
 			);
 			path = ServerList;
 			sourceTree = "<group>";
@@ -129,10 +157,12 @@
 		37E89B2024674A3300132AF8 /* SweetIRC */ = {
 			isa = PBXGroup;
 			children = (
+				3787AC3B247A7AFF00AD2F45 /* Services */,
+				3787AC3A247A7AE600AD2F45 /* Model */,
+				3787AC39247A7AA700AD2F45 /* Controllers */,
 				37CF25E524676B3E006C623C /* Components */,
 				37E89B2124674A3300132AF8 /* AppDelegate.swift */,
 				37E89B2324674A3300132AF8 /* ContentView.swift */,
-				DAF0FFB8247267E40078AE0D /* UserInformation.swift */,
 				37E89B2524674A3300132AF8 /* Assets.xcassets */,
 				37E89B2A24674A3300132AF8 /* Main.storyboard */,
 				37E89B2D24674A3300132AF8 /* Info.plist */,
@@ -300,9 +330,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAF0FFB9247267E40078AE0D /* UserInformation.swift in Sources */,
+				3787AC3D247A7B2800AD2F45 /* Connection.swift in Sources */,
 				37E89B2424674A3300132AF8 /* ContentView.swift in Sources */,
 				37E89B2224674A3300132AF8 /* AppDelegate.swift in Sources */,
 				37E3366A2469DBEC0096520D /* ServerListView.swift in Sources */,
+				3787AC3F247A7BC900AD2F45 /* ServerListEntry.swift in Sources */,
 				37CF25E824676B64006C623C /* FieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
