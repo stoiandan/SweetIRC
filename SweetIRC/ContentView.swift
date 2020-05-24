@@ -9,18 +9,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedServer : String = "FreeNode"
+    @State var selectedServer = "FreeNode"
     
     @State var showNextScreen = false;
     
     @ObservedObject var userInformation: UserInformation = UserInformation()
     
     var body: some View {
+        showView()
+    }
+    
+    func showView() -> some View {
         Group {
             if showNextScreen {
-                UserView(userInfo: self.userInformation)
+                UserView(userInfo: self.userInformation, showPrev:  $showNextScreen)
             } else {
-                self.mainBody
+                self.mainBody.padding()
             }
         }
     }
@@ -49,13 +53,22 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct UserView: View {
-    @State var userInfo: UserInformation
+    @ObservedObject var userInfo: UserInformation
+    
+    @Binding var showPrev : Bool
+    
     var body: some View {
+            mainBody
+    }
+    
+    private var mainBody : some View {
         VStack {
-            Text("\(userInfo.realName)")
-            Text("\(userInfo.nickName)")
-            Text("\(userInfo.userName)")
+            TextField("Rea Name: ", text: $userInfo.realName)
+            TextField("User Name:",text: $userInfo.userName)
+            TextField("Nick Name:", text: $userInfo.nickName)
+            Button("Go back"){
+                self.showPrev.toggle()
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
