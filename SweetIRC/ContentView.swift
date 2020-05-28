@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedServer = "FreeNode"
-    
     @State var showNextScreen = false;
     
     @ObservedObject var userInformation: UserInformation = UserInformation()
+    
+    @State var selectedServer : ServerListEntry = ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net")
     
     var body: some View {
         showView()
@@ -40,6 +40,8 @@ extension ContentView {
             ServerList(selectedServer: $selectedServer)
             Button("Connect"){
                 self.showNextScreen.toggle()
+                let coonection = Connection(userInfo: self.userInformation, serverAddress: self.selectedServer.serverAddress)
+                coonection.conenct()
             }.disabled(!userInformation.isCompleted).padding(.bottom)
         }
     }
@@ -58,10 +60,6 @@ struct UserView: View {
     @Binding var showPrev : Bool
     
     var body: some View {
-            mainBody
-    }
-    
-    private var mainBody : some View {
         VStack {
             TextField("Rea Name: ", text: $userInfo.realName)
             TextField("User Name:",text: $userInfo.userName)

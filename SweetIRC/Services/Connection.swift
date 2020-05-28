@@ -18,9 +18,30 @@ final class Connection {
     let serverAddress : String
     
     
+    fileprivate static let IRC_PORT : UInt16 = 6667
+    
+    
     init(userInfo : UserInformation, serverAddress: String) {
         self.serverAddress = serverAddress
         self.userInfo = userInfo
+    }
+    
+    func conenct() {
+        let connection = NWConnection(host: .init(serverAddress), port: .init(integerLiteral: Connection.IRC_PORT), using: .tcp)
+        
+        connection.stateUpdateHandler = { state in
+            switch state {
+            case .failed(let error):
+                print(error.localizedDescription)
+                fatalError("Connection to server \(self.serverAddress) failed!")
+            case .ready:
+                print("Connection to server \(self.serverAddress) succeded!")
+            case .preparing:
+                print("Trying to connect to server \(self.serverAddress)...")
+            default:
+                print("\(state)")
+            }
+        }
     }
     
 }
