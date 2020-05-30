@@ -11,15 +11,11 @@ import SwiftUI
 struct ContentView: View {
     @State var showNextScreen = false;
     
-    @ObservedObject var userInformation: UserInformation = UserInformation()
+    @ObservedObject var userInformation = UserInformation()
     
-    @State var selectedServer : ServerListEntry = ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net")
+    @State var selectedServer = ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net")
     
     var body: some View {
-        showView()
-    }
-    
-    func showView() -> some View {
         Group {
             if showNextScreen {
                 UserView(userInfo: self.userInformation, showPrev:  $showNextScreen)

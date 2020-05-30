@@ -10,7 +10,7 @@ import SwiftUI
 
     struct ServerList: View {
         
-        private let servers : [ServerListEntry] = [ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net"), ServerListEntry(firendlyName: "GimpNet", serverAddress: "irc.gimp.org")]
+        private let servers = [ServerListEntry(firendlyName: "FreeNode", serverAddress: "irc.freenode.net"), ServerListEntry(firendlyName: "GimpNet", serverAddress: "irc.gimp.org")]
         
         @Binding  private (set) var selectedServer : ServerListEntry
         

@@ -13,12 +13,12 @@ import Network
 final class Connection {
     
     
-    let userInfo : UserInformation
+    private let userInfo : UserInformation
     
-    let serverAddress : String
+    private let serverAddress : String
     
     
-    fileprivate static let IRC_PORT : UInt16 = 6667
+    private static let IRC_PORT : UInt16 = 6667
     
     
     init(userInfo : UserInformation, serverAddress: String) {
@@ -27,6 +27,7 @@ final class Connection {
     }
     
     func conenct() {
+        let queue = DispatchQueue(label: "Network Queue")
         let connection = NWConnection(host: .init(serverAddress), port: .init(integerLiteral: Connection.IRC_PORT), using: .tcp)
         
         connection.stateUpdateHandler = { state in
@@ -42,6 +43,7 @@ final class Connection {
                 print("\(state)")
             }
         }
+        connection.start(queue: queue)
     }
     
 }

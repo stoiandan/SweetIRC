@@ -12,7 +12,7 @@ struct Field: View {
     
     let fieldName: String
     
-    @Binding var value : String 
+    @Binding  var value : String
 
     
     var body: some View {
