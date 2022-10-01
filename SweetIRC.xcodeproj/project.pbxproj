@@ -15,6 +15,7 @@
 		37C5944628E8CF0A00C4E934 /* SweetIRCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */; };
 		37C5944828E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */; };
 		37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945528E8D01500C4E934 /* ServerInfo .swift */; };
+		37C5945828E8D2EF00C4E934 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945728E8D2EF00C4E934 /* UserInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITests.swift; sourceTree = "<group>"; };
 		37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		37C5945528E8D01500C4E934 /* ServerInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInfo .swift"; sourceTree = "<group>"; };
+		37C5945728E8D2EF00C4E934 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				37C5945528E8D01500C4E934 /* ServerInfo .swift */,
+				37C5945728E8D2EF00C4E934 /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C5945828E8D2EF00C4E934 /* UserInfo.swift in Sources */,
 				37C5942C28E8CF0900C4E934 /* ContentView.swift in Sources */,
 				37C5942A28E8CF0900C4E934 /* SweetIRCApp.swift in Sources */,
 				37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */,
