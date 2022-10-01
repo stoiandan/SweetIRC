@@ -14,6 +14,7 @@
 		37C5943C28E8CF0A00C4E934 /* SweetIRCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5943B28E8CF0A00C4E934 /* SweetIRCTests.swift */; };
 		37C5944628E8CF0A00C4E934 /* SweetIRCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */; };
 		37C5944828E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */; };
+		37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945528E8D01500C4E934 /* ServerInfo .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		37C5944128E8CF0A00C4E934 /* SweetIRCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SweetIRCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITests.swift; sourceTree = "<group>"; };
 		37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		37C5945528E8D01500C4E934 /* ServerInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInfo .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		37C5942828E8CF0900C4E934 /* SweetIRC */ = {
 			isa = PBXGroup;
 			children = (
+				37C5945428E8CFE900C4E934 /* Model */,
 				37C5942928E8CF0900C4E934 /* SweetIRCApp.swift */,
 				37C5942B28E8CF0900C4E934 /* ContentView.swift */,
 				37C5942D28E8CF0A00C4E934 /* Assets.xcassets */,
@@ -127,6 +130,14 @@
 				37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */,
 			);
 			path = SweetIRCUITests;
+			sourceTree = "<group>";
+		};
+		37C5945428E8CFE900C4E934 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37C5945528E8D01500C4E934 /* ServerInfo .swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 			files = (
 				37C5942C28E8CF0900C4E934 /* ContentView.swift in Sources */,
 				37C5942A28E8CF0900C4E934 /* SweetIRCApp.swift in Sources */,
+				37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
