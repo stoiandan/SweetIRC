@@ -1,14 +1,15 @@
 import Foundation
 
-struct UserInfo {
-    let nickName: String
-    let realName: String
-    let userName: String
-    let password: String
+public struct UserInfo {
+    public static  let defaultUser = UserInfo(nickName: "dirk01", realName: "Dirk Abenhof", userName: "dirnk", password: "dirksis", server: ServerInfo.servers[0])
+    public var nickName = ""
+    public var realName = ""
+    public var userName = ""
+    public var password = ""
     
-    let server: ServerInfo?
+    public var server: ServerInfo?
     
-    var isInfoFilled: Bool {
+    public var isInfoFilled: Bool {
         return !(nickName.isEmpty || realName.isEmpty || userName.isEmpty || password.isEmpty || server == nil )
     }
 }
