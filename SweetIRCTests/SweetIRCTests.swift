@@ -24,9 +24,14 @@ final class SweetIRCTests: XCTestCase {
     }
     
     func testIsNotUserField() throws {
+        // Arange
         var user = UserInfo()
+        
+        // Act
         user.nickName = "dirkOS"
         user.realName = "Drik Abendhof"
+        
+        // Asset 
         XCTAssertFalse(user.isInfoFilled)
     }
 
