@@ -20,11 +20,9 @@ final class IRCSessionTests: XCTestCase {
         session = nil
     }
 
-    func testConnect() throws {
-        Task {
-            let channel = await session.connect(as: UserInfo.defaultUser)
-            XCTAssertTrue(channel != nil)
-        }
+    func testConnect() async throws {
+        let channel = await session.connect(as: UserInfo.defaultUser)
+        XCTAssert(channel != nil)
     }
 
     func testPerformanceExample() throws {

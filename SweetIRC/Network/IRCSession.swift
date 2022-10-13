@@ -10,7 +10,7 @@ public class IRCSession {
     
     static let timeOut = 200.00
     
-    private var publishers: [String:PassthroughSubject<Response,Never>] = [:]
+    private var publishers: [String:PassthroughSubject<Response,Never>] = ["System Room" : PassthroughSubject()]
     
     private let stream: URLSessionStreamTask
     
@@ -23,8 +23,9 @@ public class IRCSession {
     
     public func connect(as user: UserInfo) async -> IRCChannel? {
         stream.startSecureConnection()
-        let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 8 * :\(user.realName)"])
         stream.resume()
+
+        let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 8 * :\(user.realName)"])
         
         return await joinChannel("System Room")
     }
