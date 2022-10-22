@@ -25,7 +25,7 @@ public class IRCSession {
         stream.startSecureConnection()
         stream.resume()
 
-        let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 8 * :\(user.realName)"])
+        let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 0 * :\(user.realName)"])
         
         return await joinChannel("System Room")
     }

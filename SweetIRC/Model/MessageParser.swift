@@ -16,24 +16,6 @@ struct MessageParser {
         Capture {
             OneOrMore {
                 NegativeLookahead {
-                    " "
-                }
-                CharacterClass.any
-            }
-        }
-        " "
-        Capture {
-            OneOrMore {
-                NegativeLookahead {
-                    " "
-                }
-                CharacterClass.digit
-            }
-        }
-        
-        Capture {
-            OneOrMore {
-                NegativeLookahead {
                     ":"
                 }
                 CharacterClass.any
@@ -54,12 +36,12 @@ struct MessageParser {
     mutating func pasrse(_ message: String  = "" ) -> Message? {
         buffer = buffer + message
         
-        if let result = buffer.firstMatch(of: pattern) {
-            let (wholeMatch, from, code, header, content) =  result.output
+        if let result =  buffer.firstMatch(of: pattern) {
+            let (wholeMatch,header,content) = result.output
             
             buffer = String(buffer.dropFirst(wholeMatch.count))
             
-            return Message(from: String(from), header: String(header), content: String(content), code: String(code))
+            return Message(header: String(header), content: String(content))
         }
         return nil
     }
