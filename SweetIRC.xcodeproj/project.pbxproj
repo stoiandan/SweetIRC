@@ -24,6 +24,8 @@
 		37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945528E8D01500C4E934 /* ServerInfo .swift */; };
 		37C5945828E8D2EF00C4E934 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945728E8D2EF00C4E934 /* UserInfo.swift */; };
 		37F171922903DE4C00D06581 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F171912903DE4C00D06581 /* ParserTests.swift */; };
+		37F1719429045EB800D06581 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1719329045EB800D06581 /* Store.swift */; };
+		37F17196290465CB00D06581 /* View+BlueButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F17195290465CB00D06581 /* View+BlueButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		37C5945528E8D01500C4E934 /* ServerInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInfo .swift"; sourceTree = "<group>"; };
 		37C5945728E8D2EF00C4E934 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		37F171912903DE4C00D06581 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		37F1719329045EB800D06581 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		37F17195290465CB00D06581 /* View+BlueButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+BlueButtonStyle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				37B0627E28F9933200047B3A /* Login */,
+				37F1719329045EB800D06581 /* Store.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				37B0627F28F9934400047B3A /* Login.swift */,
+				37F17195290465CB00D06581 /* View+BlueButtonStyle.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -327,6 +333,8 @@
 				37A6548028E9A4E900647F7B /* MessageParser.swift in Sources */,
 				37A6547A28E99BA500647F7B /* Response.swift in Sources */,
 				37C5942C28E8CF0900C4E934 /* ContentView.swift in Sources */,
+				37F17196290465CB00D06581 /* View+BlueButtonStyle.swift in Sources */,
+				37F1719429045EB800D06581 /* Store.swift in Sources */,
 				37C5942A28E8CF0900C4E934 /* SweetIRCApp.swift in Sources */,
 				37A6547E28E9A34F00647F7B /* Message.swift in Sources */,
 				37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */,
