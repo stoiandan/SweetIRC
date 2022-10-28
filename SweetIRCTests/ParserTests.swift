@@ -62,16 +62,17 @@ final class ParserTests: XCTestCase {
     
     
     func testMultipleMessages() throws {
-        //act
+        //arange
         let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
         
-        
+        //act
         let messages = parser.pasrse(message)
         
+
+        //assert
         let messageStrip = "silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers"
         let messageStrip2 = "silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448"
 
-        //assert
         XCTAssertEqual(2, messages.count)
         XCTAssertEqual(messageStrip, messages[0].message)
         XCTAssertEqual(messageStrip2, messages[1].message)

@@ -18,7 +18,7 @@
 		37C5942C28E8CF0900C4E934 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5942B28E8CF0900C4E934 /* ContentView.swift */; };
 		37C5942E28E8CF0A00C4E934 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37C5942D28E8CF0A00C4E934 /* Assets.xcassets */; };
 		37C5943128E8CF0A00C4E934 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37C5943028E8CF0A00C4E934 /* Preview Assets.xcassets */; };
-		37C5943C28E8CF0A00C4E934 /* SweetIRCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5943B28E8CF0A00C4E934 /* SweetIRCTests.swift */; };
+		37C5943C28E8CF0A00C4E934 /* UserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5943B28E8CF0A00C4E934 /* UserTest.swift */; };
 		37C5944628E8CF0A00C4E934 /* SweetIRCUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */; };
 		37C5944828E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */; };
 		37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945528E8D01500C4E934 /* ServerInfo .swift */; };
@@ -60,7 +60,7 @@
 		37C5943028E8CF0A00C4E934 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		37C5943228E8CF0A00C4E934 /* SweetIRC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SweetIRC.entitlements; sourceTree = "<group>"; };
 		37C5943728E8CF0A00C4E934 /* SweetIRCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SweetIRCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		37C5943B28E8CF0A00C4E934 /* SweetIRCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCTests.swift; sourceTree = "<group>"; };
+		37C5943B28E8CF0A00C4E934 /* UserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTest.swift; sourceTree = "<group>"; };
 		37C5944128E8CF0A00C4E934 /* SweetIRCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SweetIRCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37C5944528E8CF0A00C4E934 /* SweetIRCUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITests.swift; sourceTree = "<group>"; };
 		37C5944728E8CF0A00C4E934 /* SweetIRCUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetIRCUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		37C5943A28E8CF0A00C4E934 /* SweetIRCTests */ = {
 			isa = PBXGroup;
 			children = (
-				37C5943B28E8CF0A00C4E934 /* SweetIRCTests.swift */,
+				37C5943B28E8CF0A00C4E934 /* UserTest.swift */,
 				3753EAE828E9D138009B7CBE /* IRCSessionTests.swift */,
 				37F171912903DE4C00D06581 /* ParserTests.swift */,
 			);
@@ -346,7 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37C5943C28E8CF0A00C4E934 /* SweetIRCTests.swift in Sources */,
+				37C5943C28E8CF0A00C4E934 /* UserTest.swift in Sources */,
 				3753EAE928E9D138009B7CBE /* IRCSessionTests.swift in Sources */,
 				37F171922903DE4C00D06581 /* ParserTests.swift in Sources */,
 			);
