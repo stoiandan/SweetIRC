@@ -8,6 +8,7 @@
 import XCTest
 @testable import SweetIRC
 
+
 final class SweetIRCTests: XCTestCase {
 
     override func setUpWithError() throws {

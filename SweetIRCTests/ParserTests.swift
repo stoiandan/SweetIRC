@@ -25,12 +25,12 @@ final class ParserTests: XCTestCase {
     func testSimpleParse() throws {
         //act
         let message = ":platinum.libera.chat NOTICE * :*** Looking up your hostname...\r\n"
-        let result = parser.pasrse(message)
+        let messages = parser.pasrse(message)
         
         let messageStrip = "platinum.libera.chat NOTICE * :*** Looking up your hostname..."
         //assert
-        XCTAssertEqual(messageStrip, result?.message)
-        
+        XCTAssertEqual(1, messages.count)
+        XCTAssertEqual(messageStrip, messages[0].message)
     }
     
     func testSimpleParseWithCodeAndExtraCotent() throws {
@@ -38,11 +38,12 @@ final class ParserTests: XCTestCase {
         let message = "Some Cotent before :copper.libera.chat 252 dan01 36 :IRC Operators online\r\n Some extra content"
         
         
-        let result = parser.pasrse(message)
+        let messages = parser.pasrse(message)
         
         let messageStrip = "copper.libera.chat 252 dan01 36 :IRC Operators online"
         //assert
-        XCTAssertEqual(messageStrip, result?.message)
+        XCTAssertEqual(1, messages.count)
+        XCTAssertEqual(messageStrip, messages[0].message)
     }
     
     
@@ -51,12 +52,32 @@ final class ParserTests: XCTestCase {
         let message = ":copper.libera.chat 252 dan01 36 :IRC Operators there is a colon here: online\r\n"
         
         
-        let result = parser.pasrse(message)
+        let messages = parser.pasrse(message)
         
         let messageStrip = "copper.libera.chat 252 dan01 36 :IRC Operators there is a colon here: online"
         //assert
-        XCTAssertEqual(messageStrip, result?.message)
+        XCTAssertEqual(1, messages.count)
+        XCTAssertEqual(messageStrip, messages[0].message)
     }
+    
+    
+    func testMultipleMessages() throws {
+        //act
+        let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
+        
+        
+        let messages = parser.pasrse(message)
+        
+        let messageStrip = "silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers"
+        let messageStrip2 = "silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448"
+
+        //assert
+        XCTAssertEqual(2, messages.count)
+        XCTAssertEqual(messageStrip, messages[0].message)
+        XCTAssertEqual(messageStrip2, messages[1].message)
+
+    }
+
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

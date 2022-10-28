@@ -24,7 +24,7 @@ public class IRCSession {
     public func connect(as user: UserInfo) async -> IRCChannel? {
         stream.startSecureConnection()
         stream.resume()
-
+        
         let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 0 * :\(user.realName)"])
         
         return await joinChannel("System Room")
@@ -73,27 +73,19 @@ public class IRCSession {
         while true {
             let response = try? await stream.readData(ofMinLength: IRCSession.minLenght, maxLength: IRCSession.maxLenght, timeout: IRCSession.timeOut)
             
-            guard let response else {
-                break
-            }
-            
-            let (data,isEOF) = response
-            
-            guard let data,
+            guard let (data,isEOF) = response,
+                  let data,
                   let message = String(data: data, encoding: .utf8),
                   isEOF == false else {
                 break
             }
             
-            let msg =  parser.pasrse(message)
-            
-            while let msg {
+            for msg in parser.pasrse(message) {
                 if publishers[msg.from] != nil {
                     publishers[msg.from]?.send(.cotent(msg.content))
                 } else {
                     publishers["System Room"]?.send(.cotent(msg.content))
                 }
-                let msg = parser.pasrse()
             }
         }
     }

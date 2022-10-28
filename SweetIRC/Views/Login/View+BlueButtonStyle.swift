@@ -9,8 +9,6 @@ import Foundation
 import SwiftUI
 
 struct BlueButtonStyle: ViewModifier {
-    
-    
     func body(content: Content) -> some View {
         content
             .buttonStyle(.plain)

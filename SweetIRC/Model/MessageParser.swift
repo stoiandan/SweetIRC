@@ -33,16 +33,14 @@ struct MessageParser {
         "\r\n"
     }
     
-    mutating func pasrse(_ message: String  = "" ) -> Message? {
+    mutating func pasrse(_ message: String ) -> [Message] {
         buffer = buffer + message
-        
-        if let result =  buffer.firstMatch(of: pattern) {
+        var messages: [Message] = []
+        for result in buffer.matches(of: pattern) {
             let (wholeMatch,header,content) = result.output
-            
             buffer = String(buffer.dropFirst(wholeMatch.count))
-            
-            return Message(header: String(header), content: String(content))
+            messages.append(Message(header: String(header), content: String(content)))
         }
-        return nil
+        return messages
     }
 }
