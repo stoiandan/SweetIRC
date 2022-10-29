@@ -38,16 +38,21 @@ struct Login: View {
             }
             .padding(.top)
             Spacer()
-            Button("Login") {
-                
+            if store.isLoginEnabled {
+                Button("Login") {
+                    
+                }
+                .withBlueStyle()
+                .transition(.slide)
+
             }
-            .withBlueStyle()
+            Spacer()
+            Spacer()
             
-            Spacer()
-            Spacer()
         }
         .padding()
         .frame(width: 300, height: 500)
+        .animation(.default, value: store.isLoginEnabled)
     }
 }
 
