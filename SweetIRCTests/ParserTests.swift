@@ -78,6 +78,29 @@ final class ParserTests: XCTestCase {
         XCTAssertEqual(messageStrip2, messages[1].message)
 
     }
+    
+    func testMessageContent() throws {
+        //arange
+        let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera ARP dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
+        
+        //act
+        let messages = parser.pasrse(message)
+        
+
+        //assert
+        XCTAssertEqual("silver.libera.chat", messages[0].from)
+        XCTAssertEqual("I have 3398 clients and 1 servers", messages[0].content)
+        XCTAssertEqual("silver.libera.chat 255 dan01 ", messages[0].header)
+        XCTAssertEqual("255", messages[0].code)
+        
+        
+        XCTAssertEqual("silver.libera", messages[1].from)
+        XCTAssertEqual("Current local users 3398, max 3448", messages[1].content)
+        XCTAssertEqual("silver.libera ARP dan01 3398 3448 ", messages[1].header)
+        XCTAssertEqual("ARP", messages[1].code)
+
+
+    }
 
 
     func testPerformanceExample() throws {
