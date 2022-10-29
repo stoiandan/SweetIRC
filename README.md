@@ -15,8 +15,18 @@ SweetIRC is meant to be a fast, macOS native, Metal accelarated GUI, offering a 
 <figurecaption>The login screen where the user fills data and proceedes to connect to a particular IRC server </figurecaption>
 </figure>
 
+
+
+
 ### Design
 
 The software design and arhitecture is based on Microsoft's MVVM Design Pattern, orginally developed for Microsoft SilverLight applications and WPF.
 SwiftUI can be a great candidate for this pattern, especailly via it's valu type structs that provide immutability by default, it's *Combine framewor*k's
 _ObservableObject protocol_ and so on.
+
+### Metal harware accelaration 
+
+SwiftUI makes use of Metal by default for Hardware video acceleration, and SweetIRC makes uses animations to make the app more user firendly and take advantage of the powerful graphics offered in Mac hardware.
+
+https://user-images.githubusercontent.com/10388612/198834856-63616133-7dd0-4b94-a950-a30d6b579ad7.mov
+
