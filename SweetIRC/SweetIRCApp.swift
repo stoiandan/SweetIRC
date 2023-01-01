@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct SweetIRCApp: App {
-    let store = Store()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(store)
         }
     }
 }

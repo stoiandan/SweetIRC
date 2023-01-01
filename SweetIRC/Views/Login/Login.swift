@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Login: View {
-    @EnvironmentObject var store: Store
+    @ObservedObject var vm = LoginVM()
     
     var body: some View {
         VStack {
@@ -17,16 +17,16 @@ struct Login: View {
                 .padding()
             Spacer()
             Form {
-                TextField("Nickname:", text: $store.user.nickName, prompt: Text("nick name..."))
-                TextField("Username:", text: $store.user.userName)
-                SecureField("Password:", text: $store.user
+                TextField("Nickname:", text: $vm.user.nickName, prompt: Text("nick name..."))
+                TextField("Username:", text: $vm.user.userName)
+                SecureField("Password:", text: $vm.user
                     .password, prompt: Text("password..."))
-                TextField("Real name:", text: $store.user.realName)
+                TextField("Real name:", text: $vm.user.realName)
             }
             
-            Picker("Server:", selection: $store.user.server) {
+            Picker("Server:", selection: $vm.user.server) {
                 
-                if store.user.server == nil {
+                if vm.user.server == nil {
                     Text("Select a server")
                         .tag(nil as ServerInfo?)
                 }
@@ -38,13 +38,11 @@ struct Login: View {
             }
             .padding(.top)
             Spacer()
-            if store.isLoginEnabled {
-                Button("Login") {
-                    
-                }
-                .withBlueStyle()
-                .transition(.slide)
-
+            if vm.isLoginEnabled {
+                NavigationLink("Login", value: vm.user )
+                    .withBlueStyle()
+                    .transition(.slide)
+                    .rotationEffect(vm.isRotated ? .degrees(180) : .zero)
             }
             Spacer()
             Spacer()
@@ -52,13 +50,13 @@ struct Login: View {
         }
         .padding()
         .frame(width: 300, height: 500)
-        .animation(.default, value: store.isLoginEnabled)
+        .animation(.default, value: vm.isLoginEnabled)
+        
     }
 }
 
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
         Login()
-            .environmentObject(Store())
     }
 }

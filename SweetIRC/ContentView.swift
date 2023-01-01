@@ -9,13 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Login()
+        NavigationStack {
+            Login()
+                .navigationDestination(for: UserInfo.self, destination: { user in
+                     Text("We're in")
+                })
+        }
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Store())
     }
 }

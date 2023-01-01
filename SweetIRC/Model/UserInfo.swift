@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserInfo {
+public struct UserInfo: Hashable {
     public static  let defaultUser = UserInfo(nickName: "dirk01", realName: "Dirk Abenhof", userName: "dirnk", password: "dirksis", server: ServerInfo.servers[0])
     public var nickName = ""
     public var realName = ""
