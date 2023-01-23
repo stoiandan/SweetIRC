@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3702E0402958F9210054BD98 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702E03F2958F9210054BD98 /* LoginVM.swift */; };
 		3753EAE928E9D138009B7CBE /* IRCSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753EAE828E9D138009B7CBE /* IRCSessionTests.swift */; };
+		375DB019297DBFED003EB77A /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375DB018297DBFED003EB77A /* Chat.swift */; };
+		375DB01B297DC016003EB77A /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375DB01A297DC016003EB77A /* ChatVM.swift */; };
+		375DB01D297DC1CB003EB77A /* ChatDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375DB01C297DC1CB003EB77A /* ChatDetail.swift */; };
 		37A6547828E98E9B00647F7B /* IRCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6547728E98E9B00647F7B /* IRCSession.swift */; };
 		37A6547A28E99BA500647F7B /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6547928E99BA500647F7B /* Response.swift */; };
 		37A6547C28E99F8A00647F7B /* IRCChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6547B28E99F8A00647F7B /* IRCChannel.swift */; };
@@ -48,6 +51,9 @@
 /* Begin PBXFileReference section */
 		3702E03F2958F9210054BD98 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		3753EAE828E9D138009B7CBE /* IRCSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCSessionTests.swift; sourceTree = "<group>"; };
+		375DB018297DBFED003EB77A /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		375DB01A297DC016003EB77A /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
+		375DB01C297DC1CB003EB77A /* ChatDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetail.swift; sourceTree = "<group>"; };
 		37A6547728E98E9B00647F7B /* IRCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCSession.swift; sourceTree = "<group>"; };
 		37A6547928E99BA500647F7B /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		37A6547B28E99F8A00647F7B /* IRCChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCChannel.swift; sourceTree = "<group>"; };
@@ -96,6 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		375DB017297DBFDD003EB77A /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				375DB018297DBFED003EB77A /* Chat.swift */,
+				375DB01A297DC016003EB77A /* ChatVM.swift */,
+				375DB01C297DC1CB003EB77A /* ChatDetail.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		37A6547628E98E9000647F7B /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +123,7 @@
 		37B0627D28F9931C00047B3A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				375DB017297DBFDD003EB77A /* Chat */,
 				37B0627E28F9933200047B3A /* Login */,
 			);
 			path = Views;
@@ -327,8 +344,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375DB019297DBFED003EB77A /* Chat.swift in Sources */,
 				37C5945828E8D2EF00C4E934 /* UserInfo.swift in Sources */,
+				375DB01B297DC016003EB77A /* ChatVM.swift in Sources */,
 				3702E0402958F9210054BD98 /* LoginVM.swift in Sources */,
+				375DB01D297DC1CB003EB77A /* ChatDetail.swift in Sources */,
 				37B0628028F9934400047B3A /* Login.swift in Sources */,
 				37A6547828E98E9B00647F7B /* IRCSession.swift in Sources */,
 				37A6548028E9A4E900647F7B /* MessageParser.swift in Sources */,

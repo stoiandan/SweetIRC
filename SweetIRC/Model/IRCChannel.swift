@@ -3,9 +3,9 @@
 import Foundation
 import Combine
 
-public class IRCChannel {
+public class IRCChannel: ObservableObject {
     let name: String
-    private(set) var messages: [String] = []
+    @Published private(set) var messages: [String] = []
     
     private var subcriptions = Set<AnyCancellable>()
     
