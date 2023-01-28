@@ -1,5 +1,3 @@
-
-
 import Foundation
 import Combine
 
@@ -10,7 +8,7 @@ public class IRCSession {
     
     static let timeOut = 200.00
     
-    private var publishers: [String:PassthroughSubject<Response,Never>] = ["System Room" : PassthroughSubject()]
+    private var roomsCallbacks: [String:(String) -> Void] = [:]
     
     private let stream: URLSessionStreamTask
     
@@ -26,7 +24,9 @@ public class IRCSession {
         stream.resume()
         
         let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 0 * :\(user.realName)"])
-        
+        Task {
+            await self.listen()
+        }
         return await joinChannel("System Room")
     }
     
@@ -54,17 +54,16 @@ public class IRCSession {
         }
     }
     
-    public func send(message: String, to: String) async -> Bool {
-        return await sendMessage(of: "PRIVMSG \(to) :\(message)")
+    private func sendMessage(of message: Message) async -> Bool {
+        return await sendMessage(of: "PRIVMSG \(message.from) :\(message.content)")
     }
     
     public func joinChannel(_ name: String) async -> IRCChannel? {
-        guard publishers[name] != nil else {
+        guard !roomsCallbacks.keys.contains(name) else {
             return nil
         }
-        let publisher = PassthroughSubject<Response,Never>()
-        publishers[name] = publisher
-        let channel = IRCChannel(name: name, messagePublisher: publisher)
+        let channel = IRCChannel(name: name, session: self)
+        roomsCallbacks[name] = channel.recieveMessage
         return channel
     }
     
@@ -81,15 +80,44 @@ public class IRCSession {
             }
             
             for msg in parser.pasrse(message) {
-                if publishers[msg.from] != nil {
-                    publishers[msg.from]?.send(.cotent(msg.content))
+                if roomsCallbacks[msg.from] != nil {
+                    roomsCallbacks[msg.from]?(msg.content)
                 } else {
-                    publishers["System Room"]?.send(.cotent(msg.content))
+                    roomsCallbacks["System Room"]!(msg.content)
                 }
             }
         }
     }
-    
+}
+
+extension IRCSession {
+    public class IRCChannel: Channel, ObservableObject {
+        let name: String
+        
+        @Published private(set) var messages: [String] = []
+        
+        private unowned let session: IRCSession
+        
+        init(name: String, session: IRCSession)  {
+            self.name = name
+            self.session = session
+        }
+        
+        public func sendMessage(_ content: String) {
+            Task {
+                let sent  = await session.sendMessage(of: createMessage(content))
+                if !sent {
+                    await MainActor.run {
+                        recieveMessage(content)
+                    }
+                }
+            }
+        }
+        
+        public func recieveMessage(_ message: String) {
+            messages.append(message)
+        }
+    }
 }
 
 

@@ -12,7 +12,7 @@ struct ContentView: View {
         NavigationStack {
             Login()
                 .navigationDestination(for: UserInfo.self, destination: { user in
-                     Text("We're in")
+                     Chat(vm: ChatVM(userInfo: user))
                 })
         }
         

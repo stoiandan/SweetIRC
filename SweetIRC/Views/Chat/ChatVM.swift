@@ -3,7 +3,9 @@ import Foundation
 
 class ChatVM: ObservableObject {
     
-    private(set) var rooms: [IRCChannel] = []
+    @Published private(set) var rooms: [IRCSession.IRCChannel] = []
+    
+    @Published var selectedRommIndex: Int?
     
     private let session: IRCSession
     
@@ -18,6 +20,8 @@ class ChatVM: ObservableObject {
     
     public func connect() async {
        let room = await session.connect(as: user)
-        rooms.append(room!)
+       await MainActor.run {
+            rooms.append(room!)
+        }
     }
 }
