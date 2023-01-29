@@ -8,6 +8,8 @@
 import Foundation
 
 
-protocol Channel {
+protocol Channel: ObservableObject {
     var name: String {get}
+    
+    var messages: [String] {get}
 }

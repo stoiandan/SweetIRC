@@ -12,13 +12,12 @@ struct Chat: View {
     
     var body: some View {
         NavigationSplitView(sidebar: {
-            List(vm.rooms.indices, id: \.self, selection: $vm.selectedRommIndex) { idx in
-                Text(vm.rooms[idx].name)
+            List(vm.rooms, id: \.self, selection: $vm.selectedRomm) { room in
+                Text(room.name)
             }
         }, detail: {
-            if  let selection = vm.selectedRommIndex,
-                let selectedRoom = vm.rooms[selection] {
-                ChatDetail(messages: selectedRoom.messages)
+            if let selectedRoom = vm.selectedRomm{
+                ChatDetail(room: selectedRoom)
             }
         })
         .onAppear {
