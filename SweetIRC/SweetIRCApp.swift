@@ -14,5 +14,6 @@ struct SweetIRCApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowResizability(.contentSize)
     }
 }

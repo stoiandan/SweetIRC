@@ -63,7 +63,9 @@ public class IRCSession {
         guard !roomsCallbacks.keys.contains(name) else {
             return nil
         }
-        let channel = IRCChannel(name: name, session: self)
+        let channel = IRCChannel(name: name, messageSender: { [unowned self]  message in
+            return await sendMessage(of: message)
+        })
         roomsCallbacks[name] =  channel.recieveMessage
         return channel
     }
@@ -92,21 +94,21 @@ public class IRCSession {
 }
 
 extension IRCSession {
-    public class IRCChannel: Channel, ObservableObject {
+    public class IRCChannel: ObservableObject, Channel {
         let name: String
         
         @Published private(set) var messages: [String] = []
         
-        private unowned let session: IRCSession
+        private let messageSender: (Message) async -> Bool
         
-        init(name: String, session: IRCSession)  {
+        init(name: String, messageSender: @escaping (Message) async -> Bool)  {
             self.name = name
-            self.session = session
+            self.messageSender = messageSender
         }
         
         public func sendMessage(_ content: String) {
             Task {
-                let sent  = await session.sendMessage(of: createMessage(content))
+                let sent  = await messageSender(createMessage(content))
                 if !sent {
                     await recieveMessage(content)
                 }
@@ -138,5 +140,14 @@ extension IRCSession.IRCChannel: Hashable {
 }
 
 extension IRCSession.IRCChannel {
-    static let dummy: IRCSession.IRCChannel = .init(name: "Dummy", session: .init(with: createStreamTask(to: ServerInfo.servers[0])))
+    static let dummy: IRCSession.IRCChannel = { let room =  IRCSession.IRCChannel(name: "Dummy", messageSender: {  message in
+        return true
+    })
+        room.messages.append("Ximian: Hi!")
+        room.messages.append("RedCarpet: How are you?")
+        room.messages.append("Ximian: Oh, I'm fine, thanks! How about you?")
+        room.messages.append("RedCarpet: I'm doing just fine, thanks!")
+
+        return room
+    }()
 }

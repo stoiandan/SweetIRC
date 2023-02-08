@@ -16,7 +16,7 @@ struct Chat: View {
                 Text(room.name)
             }
         }, detail: {
-            if let selectedRoom = vm.selectedRomm{
+            if let selectedRoom = vm.selectedRomm {
                 ChatDetail(room: selectedRoom)
             }
         })

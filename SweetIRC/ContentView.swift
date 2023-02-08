@@ -15,7 +15,6 @@ struct ContentView: View {
                      Chat(vm: ChatVM(userInfo: user))
                 })
         }
-        
     }
 }
 
