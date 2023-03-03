@@ -16,15 +16,21 @@ struct ChatDetail: View {
                 VStack(alignment: .leading) {
                     ForEach(room.messages, id: \.self ) { message in
                             Text(message)
+                            .padding(.bottom, 0.2)
+                                .font(.system(size: 12))
+
                         }
                 }
             }
             
             HStack(spacing: .zero) {
                 TextField("", text: $buffer, prompt: Text("enter text here..."))
+                    .font(.system(size: 14))
+                    .cornerRadius(43)
                 Button("Send") {
                     
                 }
+                .withBlueStyle()
             }
             .padding(.top)
         }

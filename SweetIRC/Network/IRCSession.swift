@@ -86,7 +86,7 @@ public class IRCSession {
                 if roomsCallbacks[msg.from] != nil {
                     await roomsCallbacks[msg.from]?(msg.content)
                 } else {
-                    await roomsCallbacks["System Room"]!(msg.content)
+                    await roomsCallbacks["System Room"]!("\(msg.from): \(msg.content)")
                 }
             }
         }
