@@ -25,6 +25,11 @@ struct Chat: View {
                 await vm.connect()
             }
         }
+        .toolbar {
+            Button("Join Room") {
+                
+            }
+        }
     }
 }
 

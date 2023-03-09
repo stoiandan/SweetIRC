@@ -22,6 +22,7 @@ class ChatVM: ObservableObject {
         let room = await session.connect(as: user)
         await MainActor.run {
             rooms.append(room!)
+            selectedRomm = room!
         }
     }
 }

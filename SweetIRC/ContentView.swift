@@ -13,6 +13,7 @@ struct ContentView: View {
             Login()
                 .navigationDestination(for: UserInfo.self, destination: { user in
                      Chat(vm: ChatVM(userInfo: user))
+                        .frame(minWidth: 800, minHeight: 600)
                 })
         }
     }
