@@ -23,7 +23,7 @@ struct MessageParser {
         }
         ":"
         Capture {
-            OneOrMore {
+            ZeroOrMore {
                 NegativeLookahead {
                     "\r\n"
                 }

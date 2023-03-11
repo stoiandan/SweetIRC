@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 class ChatVM: ObservableObject {
     
@@ -7,9 +8,15 @@ class ChatVM: ObservableObject {
     
     @Published var selectedRomm: IRCSession.IRCChannel?
     
+    
     private let session: IRCSession
     
     private let user: UserInfo
+    
+    
+    public func roomListOf(_ content: String) -> PassthroughSubject<String,Error> {
+        return session.listRoomsOf(content)
+    }
     
     init(userInfo: UserInfo) {
         let streamTask = createStreamTask(to: userInfo.server!)

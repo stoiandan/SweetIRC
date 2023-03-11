@@ -13,6 +13,7 @@ public class IRCSession {
     private let stream: URLSessionStreamTask
     
     
+    private let roomListSubject = PassthroughSubject<String,Error>()
     
     public init(with streamTask: URLSessionStreamTask)  {
         stream = streamTask
@@ -55,18 +56,21 @@ public class IRCSession {
         }
     }
     
-    private func sendMessage(of message: Message) async -> Bool {
-        return await sendMessage(of: "PRIVMSG \(message.from) :\(message.content)")
-    }
+
     
     public func joinChannel(_ name: String) async -> IRCChannel? {
+        func sendMessageCallback(of message: Message) async -> Bool {
+            return await self.sendMessage(of: "PRIVMSG \(message.from) :\(message.content)")
+        }
+        
         guard !roomsCallbacks.keys.contains(name) else {
             return nil
         }
-        let channel = IRCChannel(name: name, messageSender: { [unowned self]  message in
-            return await sendMessage(of: message)
+        let channel = IRCChannel(name: name, messageSender: { message in
+            return await sendMessageCallback(of: message)
         })
         roomsCallbacks[name] =  channel.recieveMessage
+        
         return channel
     }
     
@@ -86,10 +90,31 @@ public class IRCSession {
                 if roomsCallbacks[msg.from] != nil {
                     await roomsCallbacks[msg.from]?(msg.content)
                 } else {
+                    if msg.code == "322" {
+                        await MainActor.run {
+                            roomListSubject.send(String(msg.header.split(separator: " ").reversed()[1]))
+                        }
+                    }
+                    if msg.code == "323" {
+                        await MainActor.run {
+                            roomListSubject.send(completion: .finished)
+                        }
+                    }
                     await roomsCallbacks["System Room"]!("\(msg.from): \(msg.content)")
                 }
             }
         }
+    }
+    
+    public func listRoomsOf(_ content: String)  -> PassthroughSubject<String,Error> {
+        Task {
+            let success = await sendMessage(of: "LIST *\(content)*")
+            if !success {
+                self.roomListSubject.send(completion: .failure(ListViewError.fail))
+            }
+        }
+
+        return self.roomListSubject
     }
 }
 

@@ -22,7 +22,7 @@ final class ParserTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testSimpleParse() throws {
+    func testSimpleParse()  {
         //act
         let message = ":platinum.libera.chat NOTICE * :*** Looking up your hostname...\r\n"
         let messages = parser.pasrse(message)
@@ -33,7 +33,7 @@ final class ParserTests: XCTestCase {
         XCTAssertEqual(messageStrip, messages[0].message)
     }
     
-    func testSimpleParseWithCodeAndExtraCotent() throws {
+    func testSimpleParseWithCodeAndExtraCotent()  {
         //act
         let message = "Some Cotent before :copper.libera.chat 252 dan01 36 :IRC Operators online\r\n Some extra content"
         
@@ -47,7 +47,7 @@ final class ParserTests: XCTestCase {
     }
     
     
-    func testSimpleParseWithColon() throws {
+    func testSimpleParseWithColon() {
         //act
         let message = ":copper.libera.chat 252 dan01 36 :IRC Operators there is a colon here: online\r\n"
         
@@ -61,7 +61,7 @@ final class ParserTests: XCTestCase {
     }
     
     
-    func testMultipleMessages() throws {
+    func testMultipleMessages() {
         //arange
         let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
         
@@ -79,7 +79,7 @@ final class ParserTests: XCTestCase {
 
     }
     
-    func testMessageContent() throws {
+    func testMessageContent() {
         //arange
         let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera ARP dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
         
@@ -99,6 +99,20 @@ final class ParserTests: XCTestCase {
         XCTAssertEqual("silver.libera ARP dan01 3398 3448 ", messages[1].header)
         XCTAssertEqual("ARP", messages[1].code)
 
+
+    }
+    
+    
+    func testEmptyConentMessage()  {
+        //arange
+        let message = ":greogry.palama.wisdom.chat 255 dan01 :\r\n"
+        
+        //act
+        let messages = parser.pasrse(message)
+        
+
+        //assert
+        XCTAssertEqual("", messages[0].content)
 
     }
 

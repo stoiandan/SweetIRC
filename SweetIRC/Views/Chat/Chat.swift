@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Chat: View {
     @StateObject var vm: ChatVM
+    @State var isListRoomPresented = false
     
     var body: some View {
         NavigationSplitView(sidebar: {
@@ -27,8 +28,11 @@ struct Chat: View {
         }
         .toolbar {
             Button("Join Room") {
-                
+                isListRoomPresented.toggle()
             }
+        }
+        .sheet(isPresented: $isListRoomPresented) {
+            RoomListView(searchEngine: vm.roomListOf)
         }
     }
 }

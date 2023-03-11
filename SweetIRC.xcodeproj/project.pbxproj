@@ -30,6 +30,7 @@
 		37C5945828E8D2EF00C4E934 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5945728E8D2EF00C4E934 /* UserInfo.swift */; };
 		37F171922903DE4C00D06581 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F171912903DE4C00D06581 /* ParserTests.swift */; };
 		37F17196290465CB00D06581 /* View+BlueButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F17195290465CB00D06581 /* View+BlueButtonStyle.swift */; };
+		37FE5AE129BA670800FEAD97 /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE5AE029BA670800FEAD97 /* RoomListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		37C5945728E8D2EF00C4E934 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		37F171912903DE4C00D06581 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		37F17195290465CB00D06581 /* View+BlueButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+BlueButtonStyle.swift"; sourceTree = "<group>"; };
+		37FE5AE029BA670800FEAD97 /* RoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		375DB017297DBFDD003EB77A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				37FE5ADF29BA66F900FEAD97 /* RoomList */,
 				375DB018297DBFED003EB77A /* Chat.swift */,
 				375DB01A297DC016003EB77A /* ChatVM.swift */,
 				375DB01C297DC1CB003EB77A /* ChatDetail.swift */,
@@ -215,6 +218,14 @@
 				37A6547928E99BA500647F7B /* Response.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		37FE5ADF29BA66F900FEAD97 /* RoomList */ = {
+			isa = PBXGroup;
+			children = (
+				37FE5AE029BA670800FEAD97 /* RoomListView.swift */,
+			);
+			path = RoomList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +367,7 @@
 				3702E0402958F9210054BD98 /* LoginVM.swift in Sources */,
 				375DB01D297DC1CB003EB77A /* ChatDetail.swift in Sources */,
 				37B0628028F9934400047B3A /* Login.swift in Sources */,
+				37FE5AE129BA670800FEAD97 /* RoomListView.swift in Sources */,
 				37A6547828E98E9B00647F7B /* IRCSession.swift in Sources */,
 				37A6547A28E99BA500647F7B /* Response.swift in Sources */,
 				37C5942C28E8CF0900C4E934 /* ContentView.swift in Sources */,
