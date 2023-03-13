@@ -11,55 +11,72 @@ import Combine
 struct RoomListView: View {
     let searchEngine: (String) -> PassthroughSubject<String,Error>
     @State var rooms: [String] = []
-    @State var error = false
     @State var seachText = ""
     @State var selection: Int?
     @State var store = Set<AnyCancellable>()
+    @State var status = SeachState.iniial
     var body: some View {
         VStack {
             HStack {
                 TextField("Search Room:", text: $seachText)
-                Button("Search") {
-                    searchEngine(seachText).sink(receiveCompletion: { comp in
-                        switch comp {
-                        case .finished:
-                            break
-                        case .failure(_):
-                            error.toggle()
-                        }
-                    }, receiveValue: { room in
-                        rooms.append(room)
-                    })
-                    .store(in: &store)
-                }
+                Button("Search", action: handleSearch)
             }
             .padding()
-            if !error {
-                List(rooms.indices, id: \.self, selection: $selection) { idx in
-                        Text(rooms[idx])
+                if rooms.isEmpty {
+                    Text(status.rawValue)
+                } else {
+                    mainView
                 }
-                .padding([.bottom,.horizontal])
-                if selection != nil {
-                    Button("Join") {
-                        
-                    }
+        }
+    }
+    
+    
+    func handleSearch() {
+        status = .querying
+        searchEngine(seachText).sink(receiveCompletion: { comp in
+            switch comp {
+            case .finished:
+                if rooms.isEmpty {
+                    status = .noResult
                 }
-            } else {
-                Text("Could not load the list an error occured")
+            case .failure(_):
+                status = .error
+            }
+        }, receiveValue: { room in
+            rooms.append(room)
+        })
+        .store(in: &store)
+    }
+    
+    @ViewBuilder
+    var mainView: some View {
+        List(rooms.indices, id: \.self, selection: $selection) { idx in
+            Text(rooms[idx])
+        }
+        .padding([.bottom,.horizontal])
+        if selection != nil {
+            Button("Join") {
             }
         }
-        .frame(minWidth: 50, maxWidth: 240, minHeight: 50)
     }
 }
 
 struct RoomListView_Previews: PreviewProvider {
     static var previews: some View {
         RoomListView(searchEngine: { _ in return PassthroughSubject<String,Error>()},
-            rooms: ["##linux","##fedora","##apple","##mac"])
+                     rooms: ["##linux","##fedora","##apple","##mac"])
     }
 }
 
 
 enum ListViewError: Error {
     case fail
+}
+
+
+enum SeachState: String {
+    case iniial = "No room queried"
+    case querying = "Performing query..."
+    case noResult = "No rooms found"
+    case error = "There was an error searching for rooms"
 }
