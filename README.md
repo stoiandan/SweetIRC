@@ -16,6 +16,16 @@ SweetIRC is meant to be a fast, macOS native, Metal accelarated GUI, offering a 
 </figure>
 
 
+### Chat
+
+With current work in progress, this is how the prototype of a chat windows looks like:
+
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/10388612/225457814-d1306524-cf97-4c69-9d48-51f998571fa2.png">
+
+And this is the window that allows one to join rooms:
+
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/10388612/225458581-9cd47c2e-c060-45c5-97d6-dc856af5e089.png">
+
 
 
 ### Design
