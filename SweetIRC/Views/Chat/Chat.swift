@@ -21,10 +21,8 @@ struct Chat: View {
                 ChatDetail(room: selectedRoom)
             }
         })
-        .onAppear {
-            Task {
-                await vm.connect()
-            }
+        .task {
+            await vm.connect()
         }
         .toolbar {
             Button("Join Room") {
