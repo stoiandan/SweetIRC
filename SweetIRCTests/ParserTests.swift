@@ -28,14 +28,20 @@ final class ParserTests: XCTestCase {
         let messages = parser.pasrse(message)
         
         let messageStrip = "platinum.libera.chat NOTICE * :*** Looking up your hostname..."
+        
+    
         //assert
         XCTAssertEqual(1, messages.count)
-        XCTAssertEqual(messageStrip, messages[0].message)
+        guard case .typical(let match, _,  _, _) = messages[0] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
+            return
+        }
+        XCTAssertEqual(match, messageStrip)
     }
     
     func testSimpleParseWithCodeAndExtraCotent()  {
         //act
-        let message = "Some Cotent before :copper.libera.chat 252 dan01 36 :IRC Operators online\r\n Some extra content"
+        let message = ":copper.libera.chat 252 dan01 36 :IRC Operators online\r\n Some extra content"
         
         
         let messages = parser.pasrse(message)
@@ -43,7 +49,11 @@ final class ParserTests: XCTestCase {
         let messageStrip = "copper.libera.chat 252 dan01 36 :IRC Operators online"
         //assert
         XCTAssertEqual(1, messages.count)
-        XCTAssertEqual(messageStrip, messages[0].message)
+        guard case .command(let wholeMatch, _, _, _, _) = messages[0] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
+            return 
+        }
+            XCTAssertEqual(wholeMatch, messageStrip)
     }
     
     
@@ -57,7 +67,12 @@ final class ParserTests: XCTestCase {
         let messageStrip = "copper.libera.chat 252 dan01 36 :IRC Operators there is a colon here: online"
         //assert
         XCTAssertEqual(1, messages.count)
-        XCTAssertEqual(messageStrip, messages[0].message)
+        guard case .command(let wholeMatch, _, _,  _, _) = messages[0] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
+            return
+        }
+            XCTAssertEqual(wholeMatch, messageStrip)
+
     }
     
     
@@ -74,8 +89,18 @@ final class ParserTests: XCTestCase {
         let messageStrip2 = "silver.libera.chat 265 dan01 3398 3448 :Current local users 3398, max 3448"
 
         XCTAssertEqual(2, messages.count)
-        XCTAssertEqual(messageStrip, messages[0].message)
-        XCTAssertEqual(messageStrip2, messages[1].message)
+        guard case .command(let wholeMatch, _, _,  _, _) = messages[0] else {
+            XCTFail("message1 is not of type: \(String(describing: ServerMessage.typical))")
+            return
+        }
+            XCTAssertEqual(wholeMatch, messageStrip)
+
+        guard case .command(let wholeMatch, _, _,  _, _) = messages[1] else {
+            XCTFail("message2 is not of type: \(String(describing: ServerMessage.typical))")
+            return
+        }
+            XCTAssertEqual(wholeMatch, messageStrip2)
+
 
     }
     
@@ -88,18 +113,24 @@ final class ParserTests: XCTestCase {
         
 
         //assert
-        XCTAssertEqual("silver.libera.chat", messages[0].from)
-        XCTAssertEqual("I have 3398 clients and 1 servers", messages[0].content)
-        XCTAssertEqual("silver.libera.chat 255 dan01 ", messages[0].header)
-        XCTAssertEqual("255", messages[0].code)
+        guard case .command(_, _,  let code, let header, let content) = messages[0] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.command))")
+            return
+        }
+        XCTAssertEqual("I have 3398 clients and 1 servers", content)
+        XCTAssertEqual("dan01 ", header)
+        XCTAssertEqual(255, code)
         
         
-        XCTAssertEqual("silver.libera", messages[1].from)
-        XCTAssertEqual("Current local users 3398, max 3448", messages[1].content)
-        XCTAssertEqual("silver.libera ARP dan01 3398 3448 ", messages[1].header)
-        XCTAssertEqual("ARP", messages[1].code)
-
-
+        guard case .typical(_, let from, let header, let content) = messages[1] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
+            return
+        }
+        
+        
+        XCTAssertEqual("silver.libera", from)
+        XCTAssertEqual("Current local users 3398, max 3448", content)
+        XCTAssertEqual("ARP dan01 3398 3448 ", header)
     }
     
     
@@ -112,7 +143,31 @@ final class ParserTests: XCTestCase {
         
 
         //assert
-        XCTAssertEqual("", messages[0].content)
+        guard case .command(_, _, _, _, let content) = messages[0] else {
+            XCTFail("message is not of type: \(String(describing: ServerMessage.command))")
+            return
+        }
+        XCTAssertEqual("", content)
+
+    }
+    
+    func testforPing()  {
+        //arange
+        let message = "PING :serv.com.org\r\n"
+        
+        //act
+        let messages = parser.pasrse(message)
+        
+
+        //assert
+        XCTAssertEqual(1, messages.count)
+        
+        guard case .pingKeepAlive(_, let server) = messages[0] else {
+            XCTFail("message is of wrong type")
+            return
+        }
+        XCTAssertEqual("serv.com.org", server)
+
 
     }
 

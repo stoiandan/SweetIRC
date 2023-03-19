@@ -4,7 +4,7 @@ import Combine
 
 public class IRCSession {
     static let minLenght = 1
-    static let maxLenght = 200
+    static let maxLenght = 512
     
     static let timeOut = 200.00
     
@@ -56,7 +56,7 @@ public class IRCSession {
         }
     }
     
-
+    
     
     public func joinChannel(_ name: String) async -> IRCChannel? {
         func sendMessageCallback(of message: Message) async -> Bool {
@@ -78,7 +78,7 @@ public class IRCSession {
         var parser = MessageParser()
         while true {
             let response = try? await stream.readData(ofMinLength: IRCSession.minLenght, maxLength: IRCSession.maxLenght, timeout: IRCSession.timeOut)
-            
+          
             guard let (data,isEOF) = response,
                   let data,
                   let message = String(data: data, encoding: .utf8),
@@ -87,20 +87,36 @@ public class IRCSession {
             }
             
             for msg in parser.pasrse(message) {
-                if roomsCallbacks[msg.from] != nil {
-                    await roomsCallbacks[msg.from]?(msg.content)
-                } else {
-                    if msg.code == "322" {
+                
+                switch msg {
+                    
+                case .command(_, let from, let code, let header, let content):
+                    switch code {
+                    case 322:
                         await MainActor.run {
-                            roomListSubject.send(String(msg.header.split(separator: " ").reversed()[1]))
+                            roomListSubject.send(String(header.split(separator: " ").reversed()[1]))
                         }
-                    }
-                    if msg.code == "323" {
+                    case 323:
                         await MainActor.run {
                             roomListSubject.send(completion: .finished)
                         }
+                    default:
+                        break
                     }
-                    await roomsCallbacks["System Room"]!("\(msg.from): \(msg.content)")
+                    
+                case .typical(_, let from, let header, let content):
+                    if roomsCallbacks[from] != nil {
+                        await roomsCallbacks[from]?(content)
+                    } else {
+                        await roomsCallbacks["System Room"]!("\(from): \(content)")
+                    }
+                case .pingKeepAlive(let server):
+                    let ok = await sendMessage(of: "PING \(server)")
+                    if !ok {
+                        await roomsCallbacks["System Room"]!("ERROR: Could not send PING to \(server)")
+                    }
+                case .unknown(let content):
+                    break
                 }
             }
         }
@@ -113,7 +129,7 @@ public class IRCSession {
                 self.roomListSubject.send(completion: .failure(ListViewError.fail))
             }
         }
-
+        
         return self.roomListSubject
     }
 }
@@ -172,7 +188,7 @@ extension IRCSession.IRCChannel {
         room.messages.append("RedCarpet: How are you?")
         room.messages.append("Ximian: Oh, I'm fine, thanks! How about you?")
         room.messages.append("RedCarpet: I'm doing just fine, thanks!")
-
+        
         return room
     }()
 }

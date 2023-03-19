@@ -8,25 +8,45 @@
 import Foundation
 
 
-struct ServerMessage {
-    let from: String
-    let header: String
-    let content: String
-    let code: String
-    
-    let message: String
+enum ServerMessage {
     
     
-    init(header: String, content: String) {
-        self.message = header + ":" + content
-        self.header = header
-        self.content = content
+    private static let commandPattern = /:(?<from>[^ ]+) (?<code>\d+) (?<header>[^:]+):(?<content>.*)/
+    
+    private static let typicalPattern = /:(?<from>[^ ]+) (?<header>[^:]+):(?<content>.*)/
+                                         
+    
+    private static let pingPattern = /PING :(?<server>.+)/
+    
+    init(_ content: String) {
         
-        let split = header.split(separator: " ")
         
-        self.from = String(split.first!)
+        if let match = content.wholeMatch(of: ServerMessage.commandPattern)?.output {
+            self = .command(String(match.0.dropFirst(1)), String(match.from), Int(match.code)!, String(match.header), String(match.content))
+            return
+        }
         
-        self.code = String(split[1])
         
+        if let match = content.wholeMatch(of: ServerMessage.typicalPattern)?.output {
+            self = .typical(String(match.0.dropFirst(1)), String(match.from), String(match.header), String(match.content))
+            return
+        }
+        
+        if let match = content.wholeMatch(of: ServerMessage.pingPattern)?.output {
+            self = .pingKeepAlive(String(match.0), String(match.server))
+            return
+        }
+        
+        self = .unknown(content)
     }
+    
+    
+    case command(_ wholeMatch: String, _ from: String, _ code: Int, _ header: String, _ contet: String)
+    
+    case typical(_ wholeMatch: String, _ from: String, _ header: String, _ content: String)
+    
+    case pingKeepAlive(_ wholeMatch: String, _ sever: String)
+    
+    case unknown(_ wholeMatch: String)
+    
 }

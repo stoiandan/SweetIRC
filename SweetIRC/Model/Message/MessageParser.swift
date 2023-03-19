@@ -11,35 +11,15 @@ import RegexBuilder
 struct MessageParser {
     private var buffer = ""
     
-    private let pattern = Regex {
-        ":"
-        Capture {
-            OneOrMore {
-                NegativeLookahead {
-                    ":"
-                }
-                CharacterClass.any
-            }
-        }
-        ":"
-        Capture {
-            ZeroOrMore {
-                NegativeLookahead {
-                    "\r\n"
-                }
-                CharacterClass.any
-            }
-        }
-        "\r\n"
-    }
+    private let pattern = /.+\r\n/
     
     mutating func pasrse(_ message: String ) -> [ServerMessage] {
         buffer = buffer + message
         var messages: [ServerMessage] = []
         for result in buffer.matches(of: pattern) {
-            let (wholeMatch,header,content) = result.output
+            let (wholeMatch) = result.output
             buffer = String(buffer.dropFirst(wholeMatch.count))
-            messages.append(ServerMessage(header: String(header), content: String(content)))
+            messages.append(ServerMessage(String(wholeMatch.dropLast(1))))
         }
         return messages
     }
