@@ -37,6 +37,6 @@ struct Chat: View {
 
 struct Chat_Previews: PreviewProvider {
     static var previews: some View {
-        Chat(vm: ChatVM(userInfo: .defaultUser))
+        Chat(vm: ChatVM(session: IRCSession(with: IRCConnectionMock()), user: .defaultUser))
     }
 }

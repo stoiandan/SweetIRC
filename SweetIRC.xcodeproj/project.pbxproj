@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3702E0402958F9210054BD98 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702E03F2958F9210054BD98 /* LoginVM.swift */; };
 		3753EAE928E9D138009B7CBE /* IRCSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753EAE828E9D138009B7CBE /* IRCSessionTests.swift */; };
+		375855B029DC64F900857124 /* IRCConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375855AF29DC64F900857124 /* IRCConnectionProtocol.swift */; };
 		375C0D3929846252006C229C /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C0D3829846252006C229C /* Channel.swift */; };
 		375C0D3D2984628A006C229C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C0D3A2984628A006C229C /* Message.swift */; };
 		375C0D3E2984628A006C229C /* MessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375C0D3B2984628A006C229C /* MessageParser.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		3702E03F2958F9210054BD98 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		3753EAE828E9D138009B7CBE /* IRCSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCSessionTests.swift; sourceTree = "<group>"; };
+		375855AF29DC64F900857124 /* IRCConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRCConnectionProtocol.swift; sourceTree = "<group>"; };
 		375C0D3829846252006C229C /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		375C0D3A2984628A006C229C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Message/Message.swift; sourceTree = "<group>"; };
 		375C0D3B2984628A006C229C /* MessageParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageParser.swift; path = Message/MessageParser.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			children = (
 				375C0D3829846252006C229C /* Channel.swift */,
 				37A6547728E98E9B00647F7B /* IRCSession.swift */,
+				375855AF29DC64F900857124 /* IRCConnectionProtocol.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				37F17196290465CB00D06581 /* View+BlueButtonStyle.swift in Sources */,
 				37C5942A28E8CF0900C4E934 /* SweetIRCApp.swift in Sources */,
 				37C5945628E8D01500C4E934 /* ServerInfo .swift in Sources */,
+				375855B029DC64F900857124 /* IRCConnectionProtocol.swift in Sources */,
 				375C0D3F2984628A006C229C /* ServerMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

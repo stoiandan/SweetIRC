@@ -18,10 +18,9 @@ class ChatVM: ObservableObject {
         return session.listRoomsOf(content)
     }
     
-    init(userInfo: UserInfo) {
-        let streamTask = createStreamTask(to: userInfo.server!)
-        self.user = userInfo
-        self.session = IRCSession(with: streamTask)
+    init(session: IRCSession, user: UserInfo) {
+        self.session = session
+        self.user = user
     }
     
     

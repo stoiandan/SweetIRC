@@ -10,19 +10,18 @@ public class IRCSession {
     
     private var roomsCallbacks: [String: @MainActor (String) -> Void] = [:]
     
-    private let stream: URLSessionStreamTask
+    private let ircConnection: IRCConnectionProtocol
     
     
     private let roomListSubject = PassthroughSubject<String,Error>()
     
-    public init(with streamTask: URLSessionStreamTask)  {
-        stream = streamTask
+    init(with ircConnection: IRCConnectionProtocol)  {
+        self.ircConnection = ircConnection
     }
     
     
     public func connect(as user: UserInfo) async -> IRCChannel? {
-        stream.startSecureConnection()
-        stream.resume()
+        ircConnection.startSecureCoonection()
         
         let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 0 * :\(user.realName)"])
         Task {
@@ -52,7 +51,7 @@ public class IRCSession {
         return await sendData(data)
         
         func sendData(_ data: Data) async -> Bool {
-            return  (try? await stream.write(data, timeout: IRCSession.timeOut)) != nil
+            return  (try? await ircConnection.write(data, timeout: IRCSession.timeOut)) != nil
         }
     }
     
@@ -77,7 +76,7 @@ public class IRCSession {
     private func listen() async {
         var parser = MessageParser()
         while true {
-            let response = try? await stream.readData(ofMinLength: IRCSession.minLenght, maxLength: IRCSession.maxLenght, timeout: IRCSession.timeOut)
+            let response = try? await ircConnection.readData(ofMinLength: IRCSession.minLenght, maxLength: IRCSession.maxLenght, timeout: IRCSession.timeOut)
           
             guard let (data,isEOF) = response,
                   let data,
