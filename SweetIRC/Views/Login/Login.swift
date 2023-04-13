@@ -50,7 +50,6 @@ struct Login: View {
             
         }
         .padding()
-        .frame(width: 300, height: 500)
         .animation(.default, value: vm.isLoginEnabled)
         
         
@@ -60,5 +59,6 @@ struct Login: View {
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
         Login()
+            .frame(width: 300, height: 500)
     }
 }
