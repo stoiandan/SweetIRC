@@ -43,6 +43,7 @@ struct Login: View {
                     .withBlueStyle()
                     .transition(.slide)
                     .rotationEffect(vm.isRotated ? .degrees(180) : .zero)
+                    .animation(.default, value: vm.isRotated)
             }
             Spacer()
             Spacer()
@@ -51,6 +52,7 @@ struct Login: View {
         .padding()
         .frame(width: 300, height: 500)
         .animation(.default, value: vm.isLoginEnabled)
+        
         
     }
 }

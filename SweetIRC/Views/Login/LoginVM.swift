@@ -18,7 +18,7 @@ class LoginVM : ObservableObject {
             if user.isInfoFilled != self?.isLoginEnabled {
                 self?.isLoginEnabled.toggle()
                 
-                withAnimation {
+                withAnimation(.linear) {
                     self?.isRotated.toggle()
                 }
                 self?.isRotated.toggle()
