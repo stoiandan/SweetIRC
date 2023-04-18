@@ -13,7 +13,7 @@ public class IRCSession {
     private let ircConnection: IRCConnectionProtocol
     
     
-    private let roomListSubject = PassthroughSubject<String,Error>()
+    private var roomListSubject = PassthroughSubject<RoomInfo,Error>()
     
     init(with ircConnection: IRCConnectionProtocol)  {
         self.ircConnection = ircConnection
@@ -89,11 +89,12 @@ public class IRCSession {
                 
                 switch msg {
                     
-                case .command(_, let from, let code, let header, let content):
+                case .command(_, _, let code, let header, let content):
                     switch code {
+                        
                     case 322:
                         await MainActor.run {
-                            roomListSubject.send(String(header.split(separator: " ").reversed()[1]))
+                            roomListSubject.send(RoomInfo(name: String(header.split(separator: " ").reversed()[1]), description: content))
                         }
                     case 323:
                         await MainActor.run {
@@ -103,25 +104,26 @@ public class IRCSession {
                         break
                     }
                     
-                case .typical(_, let from, let header, let content):
+                case .typical(_, let from, _, let content):
                     if roomsCallbacks[from] != nil {
                         await roomsCallbacks[from]?(content)
                     } else {
                         await roomsCallbacks["System Room"]!("\(from): \(content)")
                     }
-                case .pingKeepAlive(let server):
+                case .pingKeepAlive(_, let server):
                     let ok = await sendMessage(of: "PING \(server)")
                     if !ok {
                         await roomsCallbacks["System Room"]!("ERROR: Could not send PING to \(server)")
                     }
-                case .unknown(let content):
+                case .unknown(_):
                     break
                 }
             }
         }
     }
     
-    public func listRoomsOf(_ content: String)  -> PassthroughSubject<String,Error> {
+    public func listRoomsOf(_ content: String)  -> PassthroughSubject<RoomInfo,Error> {
+        self.roomListSubject = PassthroughSubject()
         Task {
             let success = await sendMessage(of: "LIST *\(content)*")
             if !success {

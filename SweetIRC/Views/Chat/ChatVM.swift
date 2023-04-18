@@ -14,9 +14,10 @@ class ChatVM: ObservableObject {
     private let user: UserInfo
     
     
-    public func roomListOf(_ content: String) -> PassthroughSubject<String,Error> {
-        return session.listRoomsOf(content)
+    var roomListViewModel: RoomListViewModel {
+        return RoomListViewModel(search: session.listRoomsOf)
     }
+    
     
     init(session: IRCSession, user: UserInfo) {
         self.session = session

@@ -30,7 +30,7 @@ struct Chat: View {
             }
         }
         .sheet(isPresented: $isListRoomPresented) {
-            RoomListView(searchEngine: vm.roomListOf)
+            RoomListView(viewModel: vm.roomListViewModel)
         }
     }
 }
