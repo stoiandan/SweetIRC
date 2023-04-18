@@ -10,7 +10,8 @@ import Combine
 
 struct RoomListView: View {
     @StateObject var viewModel: RoomListViewModel
-        var body: some View {
+    
+    var body: some View {
         VStack {
             HStack {
                 TextField("Search Room:", text: $viewModel.searchText)
@@ -18,32 +19,40 @@ struct RoomListView: View {
                         viewModel.handleSearch(of: viewModel.searchText)
                     }
             }
-            .frame(minWidth: 200)
             .padding()
             if viewModel.rooms.isEmpty {
-                VStack {
-                    Text(viewModel.status.rawValue)
-                    if viewModel.status == .querying {
-                        ProgressView()
-                    }
-                }
-                .padding()
+                statusView
             } else {
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(viewModel.rooms.indices, id: \.self) { idx in
-                            VStack(alignment: .leading) {
-                                Text(viewModel.rooms[idx].name)
-                                    .font(.headline)
-                                Text(viewModel.rooms[idx].description)
-                            }
-                        }
-                        .padding([.bottom,.horizontal])
-                    }
-                }
+                mainView
             }
         }
-        .frame(minWidth: 230, minHeight: viewModel.rooms.isEmpty ? CGFloat(150.0) : CGFloat (10 *  Double(viewModel.rooms.count)))
+        .frame(minWidth: 230, minHeight: viewModel.rooms.isEmpty ? CGFloat(150.0) : CGFloat (12 *  Double(viewModel.rooms.count)))
+    }
+    
+    
+    var statusView: some View {
+        VStack {
+            Text(viewModel.status.rawValue)
+            if viewModel.status == .querying {
+                ProgressView()
+            }
+        }
+        .padding()
+    }
+    
+    var mainView: some View {
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                ForEach(viewModel.rooms.indices, id: \.self) { idx in
+                    VStack(alignment: .leading) {
+                        Text(viewModel.rooms[idx].name)
+                            .font(.headline)
+                        Text(viewModel.rooms[idx].description)
+                    }
+                }
+                .padding([.bottom,.horizontal])
+            }
+        }
     }
 }
 
@@ -70,7 +79,7 @@ struct RoomListView_Previews: PreviewProvider {
     private static let vmWithRooms = RoomListViewModel(search: { _ in
         return subject
     })
-
+    
     static var previews: some View {
         Group {
             // no rooms queried, aka initial state
@@ -85,14 +94,14 @@ struct RoomListView_Previews: PreviewProvider {
             // rooms found
             RoomListView(viewModel: vmWithRooms)
             
-
+            
         }.onAppear {
             vmNoRoomsFound.handleSearch(of: "")
             vmInProgress.handleSearch(of: "")
             vmWithRooms.handleSearch(of: "")
             subject.send(RoomInfo(name: "macOS", description: "A great place to talk about macOS"))
             subject.send(RoomInfo(name: "libera", description: "A place for everyone"))
-
+            
             subject.send(completion: .finished)
         }
     }
