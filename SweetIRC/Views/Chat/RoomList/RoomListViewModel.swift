@@ -9,13 +9,12 @@ import Foundation
 import Combine
 
 class RoomListViewModel: ObservableObject {
-    
     let searchEngine: (String) -> PassthroughSubject<RoomInfo,Error>
-    
-    @Published var searchText = ""
-    
+        
     @Published private(set)  var rooms: [RoomInfo] = []
     @Published private(set) var status = SearchState.iniial
+    
+    @Published var searchText = ""
     
     
     private var store = Set<AnyCancellable>()
@@ -23,8 +22,8 @@ class RoomListViewModel: ObservableObject {
     init(search: @escaping (String) -> PassthroughSubject<RoomInfo,Error>) {
         self.searchEngine = search
     }
-
-    func handleSearch(of searchText: String) {
+    
+    func handleSearch() {
         rooms = []
         status = .querying
         searchEngine(searchText).sink(receiveCompletion: { [weak self] comp in
@@ -51,3 +50,25 @@ class RoomListViewModel: ObservableObject {
     
     
 }
+
+
+
+enum ListViewError: Error {
+    case fail
+}
+
+
+enum SearchState: String {
+    case iniial = "No room queried"
+    case querying = "Performing query..."
+    case noResult = "No rooms found"
+    case error = "There was an error searching for rooms"
+}
+
+
+
+public struct RoomInfo: Hashable {
+    let name: String
+    let description: String
+}
+

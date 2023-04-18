@@ -10,14 +10,11 @@ import Combine
 
 struct RoomListView: View {
     @StateObject var viewModel: RoomListViewModel
-    
     var body: some View {
         VStack {
             HStack {
                 TextField("Search Room:", text: $viewModel.searchText)
-                    .onSubmit {
-                        viewModel.handleSearch(of: viewModel.searchText)
-                    }
+                    .onSubmit(viewModel.handleSearch)
             }
             .padding()
             if viewModel.rooms.isEmpty {
@@ -57,7 +54,35 @@ struct RoomListView: View {
 }
 
 struct RoomListView_Previews: PreviewProvider {
-    
+    static var previews: some View {
+        Group {
+            // no rooms queried, aka initial state
+            RoomListView(viewModel: vmInitialstate)
+            
+            // searhc in progress
+            RoomListView(viewModel: vmInProgress)
+            
+            // no rooms found
+            RoomListView(viewModel: vmNoRoomsFound)
+            
+            // rooms found
+            RoomListView(viewModel: vmWithRooms)
+            
+            
+        }.onAppear {
+            vmNoRoomsFound.handleSearch()
+            vmInProgress.handleSearch()
+            vmWithRooms.handleSearch()
+            subject.send(RoomInfo(name: "macOS", description: "A great place to talk about macOS"))
+            subject.send(RoomInfo(name: "libera", description: "A place for everyone"))
+            
+            subject.send(completion: .finished)
+        }
+    }
+}
+
+
+extension RoomListView_Previews {
     private static let vmInProgress = RoomListViewModel(search: { _ in
         let subject = PassthroughSubject<RoomInfo,Error>()
         return subject
@@ -80,49 +105,4 @@ struct RoomListView_Previews: PreviewProvider {
         return subject
     })
     
-    static var previews: some View {
-        Group {
-            // no rooms queried, aka initial state
-            RoomListView(viewModel: vmInitialstate)
-            
-            // searhc in progress
-            RoomListView(viewModel: vmInProgress)
-            
-            // no rooms found
-            RoomListView(viewModel: vmNoRoomsFound)
-            
-            // rooms found
-            RoomListView(viewModel: vmWithRooms)
-            
-            
-        }.onAppear {
-            vmNoRoomsFound.handleSearch(of: "")
-            vmInProgress.handleSearch(of: "")
-            vmWithRooms.handleSearch(of: "")
-            subject.send(RoomInfo(name: "macOS", description: "A great place to talk about macOS"))
-            subject.send(RoomInfo(name: "libera", description: "A place for everyone"))
-            
-            subject.send(completion: .finished)
-        }
-    }
-}
-
-
-enum ListViewError: Error {
-    case fail
-}
-
-
-enum SearchState: String {
-    case iniial = "No room queried"
-    case querying = "Performing query..."
-    case noResult = "No rooms found"
-    case error = "There was an error searching for rooms"
-}
-
-
-
-public struct RoomInfo: Hashable {
-    let name: String
-    let description: String
 }
