@@ -28,7 +28,8 @@ struct ChatDetail: View {
                     .font(.system(size: 14))
                     .cornerRadius(43)
                 Button("Send") {
-                    
+                    room.sendMessage(buffer)
+                    buffer = ""
                 }
                 .withBlueStyle()
             }

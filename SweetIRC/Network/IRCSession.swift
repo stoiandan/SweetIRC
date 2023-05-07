@@ -12,15 +12,18 @@ public class IRCSession {
     
     private let ircConnection: IRCConnectionProtocol
     
+    private let user: UserInfo
+    
     
     private var roomListSubject = PassthroughSubject<RoomInfo,Error>()
     
-    init(with ircConnection: IRCConnectionProtocol)  {
+    init(with ircConnection: IRCConnectionProtocol, as user: UserInfo)  {
         self.ircConnection = ircConnection
+        self.user = user
     }
     
     
-    public func connect(as user: UserInfo) async -> IRCChannel? {
+    public func connect() async -> IRCChannel? {
         ircConnection.startSecureCoonection()
         
         let _ = await sendBatch(of: ["NICK \(user.nickName)","USER \(user.userName) 0 * :\(user.realName)"])
@@ -70,7 +73,7 @@ public class IRCSession {
             return nil
         }
         
-        let channel = IRCChannel(name: name, messageSender: { message in
+        let channel = IRCChannel(name: name, user: user, messageSender: { message in
             return await sendMessageCallback(of: message)
         })
         roomsCallbacks[name] =  channel.recieveMessage
@@ -144,21 +147,23 @@ public class IRCSession {
 extension IRCSession {
     public class IRCChannel: ObservableObject, Channel {
         let name: String
+        let user: UserInfo
         
         @Published private(set) var messages: [String] = []
         
         private let messageSender: (Message) async -> Bool
         
-        init(name: String, messageSender: @escaping (Message) async -> Bool)  {
+        init(name: String, user: UserInfo, messageSender: @escaping (Message) async -> Bool)  {
             self.name = name
             self.messageSender = messageSender
+            self.user = user
         }
         
         public func sendMessage(_ content: String) {
             Task {
                 let sent  = await messageSender(createMessage(content))
-                if !sent {
-                    await recieveMessage(content)
+                if sent {
+                    await recieveMessage("\(user.nickName): \(content)")
                 }
             }
         }
@@ -188,7 +193,7 @@ extension IRCSession.IRCChannel: Hashable {
 }
 
 extension IRCSession.IRCChannel {
-    static let dummy: IRCSession.IRCChannel = { let room =  IRCSession.IRCChannel(name: "Dummy", messageSender: {  message in
+    static let dummy: IRCSession.IRCChannel = { let room =  IRCSession.IRCChannel(name: "Dummy", user: UserInfo.defaultUser, messageSender: {  message in
         return true
     })
         room.messages.append("Ximian: Hi!")

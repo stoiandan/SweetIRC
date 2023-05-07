@@ -13,15 +13,13 @@ class ChatVM: ObservableObject {
     
     private let session: IRCSession
     
-    private let user: UserInfo
     
     public let roomListVM: RoomListViewModel
     
     
     
-    init(session: IRCSession, user: UserInfo) {
+    init(session: IRCSession) {
         self.session = session
-        self.user = user
         self.roomListVM = RoomListViewModel(search: session.listRoomsOf)
     }
     
@@ -38,7 +36,7 @@ class ChatVM: ObservableObject {
     
     
     public func connect() async {
-        let room = await session.connect(as: user)
+        let room = await session.connect()
         await MainActor.run {
             rooms.append(room!)
             selectedRomm = room!
