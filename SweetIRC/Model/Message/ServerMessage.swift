@@ -13,7 +13,7 @@ enum ServerMessage {
     
     private static let commandPattern = /:(?<from>[^ ]+) (?<code>\d+) (?<header>[^:]+):(?<content>.*)/
     
-    private static let typicalPattern = /:(?<from>[^ ]+) (?<header>[^:]+):(?<content>.*)/
+    private static let typicalPattern = /:(?<from>[^ ]+) (?<header>.+) (?<roomName>[^: ]+) :(?<content>.*)/
                                          
     
     private static let pingPattern = /PING :(?<server>.+)/
@@ -28,7 +28,7 @@ enum ServerMessage {
         
         
         if let match = content.wholeMatch(of: ServerMessage.typicalPattern)?.output {
-            self = .typical(String(match.0.dropFirst(1)), String(match.from), String(match.header), String(match.content))
+            self = .typical(String(match.0.dropFirst(1)), String(match.from), String(match.header), String(match.roomName), String(match.content))
             return
         }
         
@@ -43,7 +43,7 @@ enum ServerMessage {
     
     case command(_ wholeMatch: String, _ from: String, _ code: Int, _ header: String, _ contet: String)
     
-    case typical(_ wholeMatch: String, _ from: String, _ header: String, _ content: String)
+    case typical(_ wholeMatch: String, _ from: String, _ header: String, _ roomName: String, _ content: String)
     
     case pingKeepAlive(_ wholeMatch: String, _ sever: String)
     

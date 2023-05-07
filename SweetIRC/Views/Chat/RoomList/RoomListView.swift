@@ -10,6 +10,7 @@ import Combine
 
 struct RoomListView: View {
     @StateObject var viewModel: RoomListViewModel
+    let joinRoom: (String) async -> Void
     var body: some View {
         VStack {
             HStack {
@@ -41,10 +42,16 @@ struct RoomListView: View {
         ScrollView {
             LazyVStack(alignment: .leading) {
                 ForEach(viewModel.rooms.indices, id: \.self) { idx in
+                    let room = viewModel.rooms[idx]
                     VStack(alignment: .leading) {
-                        Text(viewModel.rooms[idx].name)
+                        Text(room.name)
                             .font(.headline)
-                        Text(viewModel.rooms[idx].description)
+                        Text(room.description)
+                    }
+                    .onTapGesture {
+                        Task {
+                            await joinRoom(room.name)
+                        }
                     }
                 }
                 .padding([.bottom,.horizontal])
@@ -57,16 +64,24 @@ struct RoomListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             // no rooms queried, aka initial state
-            RoomListView(viewModel: vmInitialstate)
+            RoomListView(viewModel: vmInitialstate) { val in 
+                
+            }
             
             // searhc in progress
-            RoomListView(viewModel: vmInProgress)
+            RoomListView(viewModel: vmInProgress)  { val in
+                
+            }
             
             // no rooms found
-            RoomListView(viewModel: vmNoRoomsFound)
+            RoomListView(viewModel: vmNoRoomsFound) { val in
+                
+            }
             
             // rooms found
-            RoomListView(viewModel: vmWithRooms)
+            RoomListView(viewModel: vmWithRooms) { val in
+                
+            }
             
             
         }.onAppear {

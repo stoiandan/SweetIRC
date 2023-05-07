@@ -13,7 +13,7 @@ final class IRCSessionTests: XCTestCase {
     var session: IRCSession!
 
     override func setUpWithError() throws {
-        session = IRCSession(with: createStreamTask(to: ServerInfo.servers[0]))
+        session = IRCSession(with: IRCConnection(streamTask: createStreamTask(to: ServerInfo.servers[0])))
     }
 
     override func tearDownWithError() throws {

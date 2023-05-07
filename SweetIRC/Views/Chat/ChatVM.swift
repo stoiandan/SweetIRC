@@ -8,20 +8,32 @@ class ChatVM: ObservableObject {
     
     @Published var selectedRomm: IRCSession.IRCChannel?
     
+    @Published var isListRoomPresented = false
+    
     
     private let session: IRCSession
     
     private let user: UserInfo
     
+    public let roomListVM: RoomListViewModel
     
-    var roomListViewModel: RoomListViewModel {
-        return RoomListViewModel(search: session.listRoomsOf)
-    }
     
     
     init(session: IRCSession, user: UserInfo) {
         self.session = session
         self.user = user
+        self.roomListVM = RoomListViewModel(search: session.listRoomsOf)
+    }
+    
+    public func joinRoomCallBack(roomName: String) async {
+        let room = await session.joinChannel(roomName)
+        
+        await MainActor.run {
+            if let room {
+                rooms.append(room)
+            }
+            isListRoomPresented.toggle()
+        }
     }
     
     

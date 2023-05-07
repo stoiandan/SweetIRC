@@ -65,10 +65,16 @@ public class IRCSession {
         guard !roomsCallbacks.keys.contains(name) else {
             return nil
         }
+        
+        guard await sendMessage(of: "JOIN \(name)") == true else {
+            return nil
+        }
+        
         let channel = IRCChannel(name: name, messageSender: { message in
             return await sendMessageCallback(of: message)
         })
         roomsCallbacks[name] =  channel.recieveMessage
+        
         
         return channel
     }
@@ -104,9 +110,9 @@ public class IRCSession {
                         break
                     }
                     
-                case .typical(_, let from, _, let content):
-                    if roomsCallbacks[from] != nil {
-                        await roomsCallbacks[from]?(content)
+                case .typical(_, let from, _, let roomName, let content):
+                    if roomsCallbacks[roomName] != nil {
+                        await roomsCallbacks[roomName]?("\(from): \(content)")
                     } else {
                         await roomsCallbacks["System Room"]!("\(from): \(content)")
                     }

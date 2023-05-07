@@ -32,7 +32,7 @@ final class ParserTests: XCTestCase {
     
         //assert
         XCTAssertEqual(1, messages.count)
-        guard case .typical(let match, _,  _, _) = messages[0] else {
+        guard case .typical(let match, _, _, _, _) = messages[0] else {
             XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
             return
         }
@@ -106,7 +106,7 @@ final class ParserTests: XCTestCase {
     
     func testMessageContent() {
         //arange
-        let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera ARP dan01 3398 3448 :Current local users 3398, max 3448\r\n aditional"
+        let message = ":silver.libera.chat 255 dan01 :I have 3398 clients and 1 servers\r\n:silver.libera ARP 3398 3448 dan01 :Current local users 3398, max 3448\r\n aditional"
         
         //act
         let messages = parser.pasrse(message)
@@ -122,7 +122,7 @@ final class ParserTests: XCTestCase {
         XCTAssertEqual(255, code)
         
         
-        guard case .typical(_, let from, let header, let content) = messages[1] else {
+        guard case .typical(_, let from, let header, let roomName, let content) = messages[1] else {
             XCTFail("message is not of type: \(String(describing: ServerMessage.typical))")
             return
         }
@@ -130,7 +130,8 @@ final class ParserTests: XCTestCase {
         
         XCTAssertEqual("silver.libera", from)
         XCTAssertEqual("Current local users 3398, max 3448", content)
-        XCTAssertEqual("ARP dan01 3398 3448 ", header)
+        XCTAssertEqual("ARP 3398 3448", header)
+        XCTAssertEqual("dan01", roomName)
     }
     
     
