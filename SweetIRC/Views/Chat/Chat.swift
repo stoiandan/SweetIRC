@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Chat: View {
-    @StateObject var vm: ChatVM
-    @State var selectedRoom: String?
+    @State var vm: ChatVM
     
     var body: some View {
         NavigationSplitView(sidebar: {

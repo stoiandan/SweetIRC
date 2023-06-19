@@ -1,14 +1,16 @@
 import Foundation
-import SwiftUI
 import Combine
+import Observation
 
-class ChatVM: ObservableObject {
+
+@Observable
+class ChatVM {
     
-    @Published private(set) var rooms: [IRCSession.IRCChannel] = []
+     private(set) var rooms: [IRCSession.IRCChannel] = []
     
-    @Published var selectedRomm: IRCSession.IRCChannel?
+     var selectedRomm: IRCSession.IRCChannel? = nil
     
-    @Published var isListRoomPresented = false
+     var isListRoomPresented = false
     
     
     private let session: IRCSession
