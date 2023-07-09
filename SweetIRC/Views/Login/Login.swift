@@ -57,9 +57,8 @@ struct Login: View {
     }
 }
 
-struct Login_Previews: PreviewProvider {
-    static var previews: some View {
-        Login()
-            .frame(width: 300, height: 500)
-    }
+
+#Preview {
+    Login()
+        .frame(width: 300, height: 500)
 }
